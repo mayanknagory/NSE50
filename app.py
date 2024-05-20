@@ -39,7 +39,7 @@ def fun(equity):
   ten= f.transpose()
   
   r = joblib.load(BytesIO(requests.get(f'https://github.com/mayanknagory/NSE50/blob/main/model_l/l_{equity}.pickle').content))
-  p = pickle.load(open r,'rb')
+  p = pickle.load(open (r,'rb'))
   #p = pickle.load(open(f'https://github.com/mayanknagory/NSE50/blob/main/model_l/l_{equity}.pickle', 'rb'))
   lp = df[['LowPrice']].tail(1).values
   mm = MinMaxScaler(feature_range=(0,1))
@@ -55,7 +55,7 @@ def fun(equity):
   y = mm.inverse_transform(yt)
   low = np.round(y[-1: ],2)
   r = joblib.load(BytesIO(requests.get(f'https://github.com/mayanknagory/NSE50/blob/main/model_h/{equity}.pickle').content))
-  p = pickle.load(open r,'rb')
+  p = pickle.load(open (r,'rb'))
   #p = pickle.load(open(f'https://github.com/mayanknagory/NSE50/blob/main/model_h/{equity}.pickle', 'rb')) 	
   hp = df[['HighPrice']].tail(1).values
   sh = mm.fit_transform(df[['HighPrice']])
