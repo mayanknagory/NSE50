@@ -8,6 +8,7 @@ from sklearn.preprocessing import MinMaxScaler
 from datetime import date, datetime, timedelta
 import warnings
 warnings.filterwarnings("ignore")
+import requests
 import joblib
 from io import BytesIO
 
