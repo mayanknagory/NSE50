@@ -38,7 +38,7 @@ def fun(equity):
   f = f.drop('Date', axis=1)
   ten= f.transpose()
   with open(f'https://github.com/mayanknagory/NSE50/blob/main/model_l/l_{equity}.pickle', 'rb') as f:
-  p = pickle.load(f)
+    p = pickle.load(f)
   #p = pickle.load(open (r,'rb'))
   #p = pickle.load(open(f'https://github.com/mayanknagory/NSE50/blob/main/model_l/l_{equity}.pickle', 'rb'))
   lp = df[['LowPrice']].tail(1).values
@@ -55,7 +55,7 @@ def fun(equity):
   y = mm.inverse_transform(yt)
   low = np.round(y[-1: ],2)
   with open(f'https://github.com/mayanknagory/NSE50/blob/main/model_h/{equity}.pickle', 'rb') as f:
-  p = pickle.load(f)
+    p = pickle.load(f)
   #r = pickle.load(requests.get(f'https://github.com/mayanknagory/NSE50/blob/main/model_h/{equity}.pickle'))
   #p = pickle.load(open (r,'rb'))
   #p = pickle.load(open(f'https://github.com/mayanknagory/NSE50/blob/main/model_h/{equity}.pickle', 'rb')) 	
