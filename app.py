@@ -38,8 +38,8 @@ def fun(equity):
   f = f.drop('Date', axis=1)
   ten= f.transpose()
   
-  p = joblib.load(BytesIO(requests.get(f'https://github.com/mayanknagory/NSE50/blob/main/model_l/l_{equity}.pickle').content))
-  
+  r = joblib.load(BytesIO(requests.get(f'https://github.com/mayanknagory/NSE50/blob/main/model_l/l_{equity}.pickle').content))
+  p = pickle.load(open r,'rb)
   #p = pickle.load(open(f'https://github.com/mayanknagory/NSE50/blob/main/model_l/l_{equity}.pickle', 'rb'))
   lp = df[['LowPrice']].tail(1).values
   mm = MinMaxScaler(feature_range=(0,1))
@@ -54,7 +54,8 @@ def fun(equity):
   yt=p.predict(xdata[-10:])
   y = mm.inverse_transform(yt)
   low = np.round(y[-1: ],2)
-  p = joblib.load(BytesIO(requests.get(f'https://github.com/mayanknagory/NSE50/blob/main/model_h/{equity}.pickle').content))
+  r = joblib.load(BytesIO(requests.get(f'https://github.com/mayanknagory/NSE50/blob/main/model_h/{equity}.pickle').content))
+  p = pickle.load(open r,'rb)
   #p = pickle.load(open(f'https://github.com/mayanknagory/NSE50/blob/main/model_h/{equity}.pickle', 'rb')) 	
   hp = df[['HighPrice']].tail(1).values
   sh = mm.fit_transform(df[['HighPrice']])
