@@ -6,6 +6,8 @@ from nselib import capital_market
 import pickle
 from sklearn.preprocessing import MinMaxScaler
 from datetime import date, datetime, timedelta
+import model_l
+import model_h
 import warnings
 warnings.filterwarnings("ignore")
 import requests
