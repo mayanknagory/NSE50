@@ -39,7 +39,7 @@ def fun(equity):
   f.index = f['Date']
   f = f.drop('Date', axis=1)
   ten= f.transpose()
-  with open(f'l_{equity}.pickle', 'rb') as f:
+  with open('l_BPCL.pickle', 'rb') as f:
     p = pickle.load(f)
   #p = pickle.load(open(f'l_{equity}.pickle', 'rb'))
   lp = df[['LowPrice']].tail(1).values
@@ -57,7 +57,7 @@ def fun(equity):
   low = np.round(y[-1: ],2)
   #r = pickle.load(requests.get(f'https://github.com/mayanknagory/NSE50/blob/main/model_h/{equity}.pickle'))
   #p = pickle.load(open (r,'rb'))
-  p = pickle.load(open(f'{equity}.pickle', 'rb')) 	
+  p = pickle.load(open('BPCL.pickle', 'rb')) 	
   hp = df[['HighPrice']].tail(1).values
   sh = mm.fit_transform(df[['HighPrice']])
   xdata = []
