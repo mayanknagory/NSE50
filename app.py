@@ -39,7 +39,7 @@ def fun(equity):
   f.index = f['Date']
   f = f.drop('Date', axis=1)
   ten= f.transpose()
-  p = pickle.load(open('l_BPCL.pickle', 'rb'))
+  p = pickle.load(open(l_BPCL.pickle, 'rb'))
   lp = df[['LowPrice']].tail(1).values
   mm = MinMaxScaler(feature_range=(0,1))
   sh = mm.fit_transform(df[['LowPrice']])
