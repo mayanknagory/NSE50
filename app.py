@@ -44,7 +44,7 @@ def fun(equity):
   f.index = f['Date']
   f = f.drop('Date', axis=1)
   ten= f.transpose()
-  p = keras.models.load_model(f'/content/drive/MyDrive/Documents/NewModels/l_{equity}.keras')
+  p = keras.models.load_model('l_ADANIENT.keras')
   lp = df[['LowPrice']].tail(1).values
   mm = MinMaxScaler(feature_range=(0,1))
   sh = mm.fit_transform(df[['LowPrice']])
@@ -59,7 +59,7 @@ def fun(equity):
   y = mm.inverse_transform(yt)
   low = np.round(y[-1: ],2)
   hp = df[['HighPrice']].tail(1).values
-  p = keras.models.load_model(f'/content/drive/MyDrive/Documents/NewModels/h_{equity}.keras')
+  p = keras.models.load_model(f'h_ADANIENT.keras')
   sh = mm.fit_transform(df[['HighPrice']])
   xdata = []
   ydata = []
