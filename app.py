@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+import tensorflow as tf
+import keras
+from keras import ops
+from tensorflow.keras.models import save_model
+from tensorflow.keras.models import model_from_json
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import LSTM
+from tensorflow.keras.layers import Dropout
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -6,13 +16,8 @@ from nselib import capital_market
 import pickle
 from sklearn.preprocessing import MinMaxScaler
 from datetime import date, datetime, timedelta
-import model_l
-import model_h
 import warnings
 warnings.filterwarnings("ignore")
-import requests
-import joblib
-from io import BytesIO
 
 def fun(equity):
   ndf = pd.DataFrame(capital_market.price_volume_data(symbol=equity, from_date=str((datetime.today()- timedelta(days=366)).strftime('%d-%m-%Y')), to_date= str(datetime.today().strftime('%d-%m-%Y'))))
@@ -23,7 +28,7 @@ def fun(equity):
   df['HighPrice'] = (df['HighPrice'].str.replace(r',', '', regex=True)).astype('float')
   df['LowPrice'] = (df['LowPrice'].str.replace(r',', '', regex=True)).astype('float')
   df['AveragePrice'] = (df['AveragePrice'].str.replace(r',', '', regex=True)).astype('float')
-  #df = df[['Date',	'HighPrice',	'LowPrice',	'AveragePrice']]
+  #df = df[['Date'	,'OpenPrice',	'HighPrice',	'LowPrice',	'ClosePrice',	'AveragePrice']]
   ddf = df[-10:]
   ddf['Date'] = pd.to_datetime(ddf['Date'])
   ddf['Date'] = ddf['Date'].dt.strftime('%d-%b')
@@ -39,7 +44,7 @@ def fun(equity):
   f.index = f['Date']
   f = f.drop('Date', axis=1)
   ten= f.transpose()
-  p = pickle.load(open(l_BPCL.pickle, 'rb'))
+  p = keras.models.load_model(f'/content/drive/MyDrive/Documents/NewModels/l_{equity}.keras')
   lp = df[['LowPrice']].tail(1).values
   mm = MinMaxScaler(feature_range=(0,1))
   sh = mm.fit_transform(df[['LowPrice']])
@@ -53,10 +58,8 @@ def fun(equity):
   yt=p.predict(xdata[-10:])
   y = mm.inverse_transform(yt)
   low = np.round(y[-1: ],2)
-  #r = pickle.load(requests.get(f'https://github.com/mayanknagory/NSE50/blob/main/model_h/{equity}.pickle'))
-  #p = pickle.load(open (r,'rb'))
-  p = pickle.load(open(BPCL.pickle, 'rb')) 	
   hp = df[['HighPrice']].tail(1).values
+  p = keras.models.load_model(f'/content/drive/MyDrive/Documents/NewModels/h_{equity}.keras')
   sh = mm.fit_transform(df[['HighPrice']])
   xdata = []
   ydata = []
